@@ -1,0 +1,24 @@
+{
+  "name": "progress_steps",
+  "version": "1.0.0",
+  "description": "Typescript+Sass",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "style": "node-sass app.scss dist/main.css",
+    "typescript": "tsc -w",
+    "start": "lite-server"
+  },
+  "keywords": [
+    "typescript",
+    "course"
+  ],
+  "author": "Michel Reynaldo Brito",
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  },
+  "dependencies": {
+    "node-sass": "^6.0.1"
+  }
+}
