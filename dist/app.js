@@ -1,23 +1,48 @@
 "use strict";
-class ExpandingCards {
+class ProgressSteps {
     constructor() {
-        this.hostElement = document.getElementById('app');
-        this.panelElements = document.querySelectorAll('.panel');
+        this.currentActive = 1;
+        this.progressElement = document.getElementById('progress');
+        this.prevElement = document.getElementById('prev');
+        this.nextElement = document.getElementById('next');
+        this.circleElements = document.querySelectorAll('.circle');
         this.configure();
     }
     configure() {
-        this.panelElements.forEach(panel => {
-            panel.addEventListener('click', () => {
-                this.removeActiveClasses();
-                panel.classList.add('active');
-            });
-        });
+        this.nextElement.addEventListener('click', this.nextBtnHandler.bind(this));
+        this.prevElement.addEventListener('click', this.prevBtnHandler.bind(this));
     }
-    removeActiveClasses() {
-        this.panelElements.forEach(el => {
-            el.classList.remove('active');
+    nextBtnHandler() {
+        this.currentActive++;
+        if (this.currentActive > this.circleElements.length) {
+            this.currentActive = this.circleElements.length;
+        }
+        this.update();
+    }
+    prevBtnHandler() {
+        this.currentActive--;
+        if (this.currentActive < 1) {
+            this.currentActive = 1;
+        }
+        this.update();
+    }
+    update() {
+        this.circleElements.forEach((circle, idx) => {
+            idx < this.currentActive ? circle.classList.add('active') : circle.classList.remove('active');
         });
+        const actives = document.querySelectorAll('.active');
+        this.progressElement.style.width = (actives.length - 1) / (this.circleElements.length - 1) * 100 + '%';
+        if (this.currentActive === 1) {
+            this.prevElement.disabled = true;
+        }
+        else if (this.currentActive === this.circleElements.length) {
+            this.nextElement.disabled = true;
+        }
+        else {
+            this.prevElement.disabled = false;
+            this.nextElement.disabled = false;
+        }
     }
 }
-const prjExpandC = new ExpandingCards();
+const prjProgressSteps = new ProgressSteps();
 //# sourceMappingURL=app.js.map
